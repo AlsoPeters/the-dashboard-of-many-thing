@@ -3,3 +3,10 @@
 .App {
   text-align: center;
 }
+
+.site-layout-content {
+  margin-top: 24px;
+  min-height: 280px;
+  padding: 24px;
+  background: #262626;
+}

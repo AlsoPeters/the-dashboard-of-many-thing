@@ -1,32 +1,40 @@
 import './App.css';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Layout } from 'antd';
 
-const { Header, Content, Footer } = Layout;
+import Footer from './components/Footer';
+import { Navbar } from './Navbar';
+
+import Home from './pages/Home';
+import Weather from './pages/Weather';
+import Movies from './pages/Movies';
+import Books from './pages/Books';
+import Jokes from './pages/Jokes';
+
+const { Content } = Layout;
 
 function App() {
   return (
-    <Layout className='layout'>
-      <Header>
-        <div className='logo' />
-        <Menu theme='dark' mode='horizontal'>
-          <Menu.Item>Home</Menu.Item>
-          <Menu.Item>Weather</Menu.Item>
-          <Menu.Item>Movies</Menu.Item>
-          <Menu.Item>Books</Menu.Item>
-          <Menu.Item>Jokes</Menu.Item>
-          {/* {new Array(4).fill(null).map((_, index) => {
-            const key = index + 1;
-            return <Menu.Item key={key}>{`nav ${key}`}</Menu.Item>;
-          })} */}
-        </Menu>
-      </Header>
-      <Content style={{ padding: '0 50px' }}>
-        <div className='site-layout-content'>Content</div>
+    <Router>
+      <Navbar />
+
+      <Content
+        style={{
+          padding: '0 50px',
+        }}
+      >
+        <div className='site-layout-content'>
+          <Switch>
+            <Route path='/' exact component={Home}></Route>
+            <Route path='/weather' component={Weather}></Route>
+            <Route path='/movies' component={Movies}></Route>
+            <Route path='/books' component={Books}></Route>
+            <Route path='/jokes' component={Jokes}></Route>
+          </Switch>
+        </div>
       </Content>
-      <Footer style={{ textAlign: 'center' }}>
-        AlsoStark ©2021 Created by AlsoPeters and Stark
-      </Footer>
-    </Layout>
+      <Footer />
+    </Router>
   );
 }
 
