@@ -5,6 +5,8 @@ import axios from 'axios';
 const { Meta } = Card;
 const { Search } = Input;
 
+const movieAPI = process.env.REACT_APP_MOVIES_API;
+
 function Movies() {
     const [movieList, setMovieList] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -14,7 +16,7 @@ function Movies() {
         // console.log('asah');
         axios
             .get(
-                `http://www.omdbapi.com/?t=${movieSearch}&apikey=a37a0fb5&plot`
+                `http://www.omdbapi.com/?t=${movieSearch}&apikey=${movieAPI}&plot`
             )
             .then((res) => {
                 setMovieList(res.data);

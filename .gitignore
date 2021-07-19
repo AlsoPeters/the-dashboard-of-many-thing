@@ -1,9 +1,5 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-#API
-REACT_APP_WEATHER_API_KEY = "7fed937ba349d84195d0cfd2a3cfb5cf"
-REACT_APP_GOOGLE_API_KEY = "AIzaSyA6r5OSnvwbVDiBh1yT83B3rEl4z6AZlhI" 
-REACT_APP_BOOKS_API_KEY = "UW3Ps60dDff2GcvFlGsifaoyCWy8hjbP"
 
 # dependencies
 /node_modules
