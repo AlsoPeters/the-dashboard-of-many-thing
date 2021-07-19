@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Input, Space, Card } from 'antd';
 import axios from 'axios';
 
+const { Meta } = Card;
 const { Search } = Input;
 
 function Movies() {
@@ -10,9 +11,11 @@ function Movies() {
     const [movieSearch, setMovieSearch] = useState('');
 
     function getMovies() {
-        console.log('asah');
+        // console.log('asah');
         axios
-            .get(`http://www.omdbapi.com/?apikey=a37a0fb5&s=${movieSearch}`)
+            .get(
+                `http://www.omdbapi.com/?t=${movieSearch}&apikey=a37a0fb5&plot`
+            )
             .then((res) => {
                 setMovieList(res.data);
                 setLoading(false);
@@ -31,7 +34,7 @@ function Movies() {
                         allowClear
                         onChange={(e) => {
                             setMovieSearch(e.target.value);
-                            console.log(movieSearch);
+                            // console.log(movieSearch);
                         }}
                         onSearch={getMovies}
                         style={{ width: 200 }}
@@ -57,12 +60,15 @@ function Movies() {
                     />
                 </Space>
             </div>
-            <img
-                src={movieList.Search[0].Poster}
-                alt={movieList.Search[0].Title}
-            ></img>
-            <h2>{movieList.Search[0].Title}</h2>
-            <h3>{movieList.Search[0].Year}</h3>
+            <Card
+                hoverable
+                style={{ width: 240 }}
+                cover={<img alt={movieList.Title} src={movieList.Poster} />}
+            >
+                <Meta title={movieList.Title} description={movieList.Plot} />
+                <p>{`IMDB Rating: ${movieList.imdbRating}`}</p>
+                <p>{`Metascore: ${movieList.Metascore}`}</p>
+            </Card>
         </div>
     );
 }
