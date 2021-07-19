@@ -1,55 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { Input, Space, Card } from 'antd';
+// import { Input, Space, Card } from 'antd';
 import axios from 'axios';
 
-const { Meta } = Card;
-const { Search } = Input;
-
 function Movies() {
-    const [movieTitle, setMovieTitle] = useState('');
-    const [movieData, setMovieData] = useState([]);
-
-    const omdbAPI = 'a37a0fb5';
-
-    const onSearch = (event) => {
-        setMovieTitle(event);
-    };
+    const [movieList, setMovieList] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        async function fetchData() {
-            const request = await axios.get(
-                `http://www.omdbapi.com/?apikey=${omdbAPI}&s=starwars`
-            );
-            console.log(request);
-            return request;
-        }
-        fetchData();
+        axios
+            .get('http://www.omdbapi.com/?apikey=a37a0fb5&s=star_wars')
+            .then((res) => {
+                setMovieList(res.data);
+                setLoading(false);
+            })
+            .catch(console.error);
     }, []);
+    console.log(movieList);
 
-    // console.log(movieTitle);
+    if (loading === true) {
+        return <h1>Loading...</h1>;
+    }
     return (
         <div>
-            <div>
-                <h1>Movies</h1>
-                <Search
-                    placeholder="input movie name"
-                    onSearch={onSearch}
-                    // onChange=
-                    enterButton
-                />
-            </div>
-            <Card
-                hoverable
-                style={{ width: 240 }}
-                cover={
-                    <img
-                        alt="example"
-                        src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-                    />
-                }
-            >
-                <Meta title={movieTitle} description="www.instagram.com" />
-            </Card>
+            <h1>Movies</h1>
+            <img
+                src={movieList.Search[0].Poster}
+                alt={movieList.Search[0].Title}
+            ></img>
+            <h2>{movieList.Search[0].Title}</h2>
+            <h3>{movieList.Search[0].Year}</h3>
         </div>
     );
 }
