@@ -8,7 +8,17 @@ const { Search } = Input;
 function Books() {
     const [isBook, setIsBook] = useState('');
 
-    const handleClick = () => {};
+    const nyTimes_Api_Token = process.env.REACT_APP_BOOKS_API_KEY;
+
+    const handleClick = () => {
+        axios
+            .get(
+                `https://api.nytimes.com/svc/books/v3/reviews.json?title=${isBook}&api-key=${nyTimes_Api_Token}`
+            )
+            .then((res) => {
+                console.log(res);
+            });
+    };
     return (
         <div>
             <h1>Books</h1>
