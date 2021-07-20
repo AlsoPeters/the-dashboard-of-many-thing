@@ -108,6 +108,7 @@ const Weather = () => {
                         setIsCity(e.target.value);
                     }}
                     enterButton
+                    style={{ width: 200 }}
                 />
             </div>
         </div>
