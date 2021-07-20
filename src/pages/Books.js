@@ -8,17 +8,24 @@ const { Search } = Input;
 function Books() {
     const [isBook, setIsBook] = useState('');
 
-    const nyTimes_Api_Token = process.env.REACT_APP_BOOKS_API_KEY;
+
+    const google_books_api_key = process.env.REACT_APP_GOOGLE_BOOKS_API_KEY;
+
 
     const handleClick = () => {
         axios
             .get(
-                `https://api.nytimes.com/svc/books/v3/reviews.json?title=${isBook}&api-key=${nyTimes_Api_Token}`
+
+                `https://www.googleapis.com/books/v1/volumes?q=${isBook}+intitle:keyes&key=${google_books_api_key}`
+
             )
             .then((res) => {
                 console.log(res);
             });
     };
+
+
+
     return (
         <div>
             <h1>Books</h1>
