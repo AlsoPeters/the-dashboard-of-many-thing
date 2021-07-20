@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Input, Space, Card } from 'antd';
 import axios from 'axios';
 
@@ -30,18 +30,16 @@ function Movies() {
         return (
             <div>
                 <h1>Movies</h1>
-                <Space direction="vertical">
-                    <Search
-                        placeholder="Enter a movie name"
-                        allowClear
-                        onChange={(e) => {
-                            setMovieSearch(e.target.value);
-                            // console.log(movieSearch);
-                        }}
-                        onSearch={getMovies}
-                        style={{ width: 200 }}
-                    />
-                </Space>
+                <Search
+                    placeholder="Enter a movie name"
+                    onChange={(e) => {
+                        setMovieSearch(e.target.value);
+                        // console.log(movieSearch);
+                    }}
+                    onSearch={getMovies}
+                    enterButton
+                    style={{ width: 200 }}
+                />
             </div>
         );
     }
@@ -49,20 +47,19 @@ function Movies() {
         <div>
             <h1>Movies</h1>
             <div>
-                <Space direction="vertical">
-                    <Search
-                        placeholder="Enter a movie name"
-                        allowClear
-                        onChange={(e) => {
-                            setMovieSearch(e.target.value);
-                            console.log(movieSearch);
-                        }}
-                        onSearch={getMovies}
-                        style={{ width: 200 }}
-                    />
-                </Space>
+                <Search
+                    className="movie-input"
+                    placeholder="Enter a movie name"
+                    onChange={(e) => {
+                        setMovieSearch(e.target.value);
+                        console.log(movieSearch);
+                    }}
+                    onSearch={getMovies}
+                    // style={{ width: 200 }}
+                />
             </div>
             <Card
+                className="movie-card"
                 hoverable
                 style={{ width: 240 }}
                 cover={<img alt={movieList.Title} src={movieList.Poster} />}
