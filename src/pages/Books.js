@@ -25,7 +25,7 @@ function Books() {
     };
 
     const renderDataCards = (data) => {
-        console.log(data);
+        console.log(data.volumeInfo.imageLinks);
         return (
             <Card
                 className="card-data"
@@ -40,6 +40,7 @@ function Books() {
                 <Meta
                     avatar={
                         <Avatar
+                            alt="example"
                             src={data.volumeInfo.imageLinks.smallThumbnail}
                         />
                     }
