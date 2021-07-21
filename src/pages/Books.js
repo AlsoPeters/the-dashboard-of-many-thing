@@ -25,23 +25,34 @@ function Books() {
     };
 
     const renderDataCards = (data) => {
-        console.log(data.volumeInfo.imageLinks);
+        // console.log(data.volumeInfo.infoLink);
+        const handleLink = () => {
+            return data.volumeInfo.infoLink;
+        };
+
         return (
             <Card
-                className="card-data"
+                className="card-data grow"
                 style={{ width: 300 }}
                 cover={
                     <img
-                        alt="example"
-                        src={data.volumeInfo.imageLinks.thumbnail}
+                        alt="No image to display"
+                        src={
+                            data?.volumeInfo?.imageLinks?.thumbnail ||
+                            'no image'
+                        }
                     />
                 }
+                onClick={handleLink}
             >
                 <Meta
                     avatar={
                         <Avatar
-                            alt="example"
-                            src={data.volumeInfo.imageLinks.smallThumbnail}
+                            alt="No image"
+                            src={
+                                data?.volumeInfo?.imageLinks?.smallThumbnail ||
+                                'No image'
+                            }
                         />
                     }
                     title={data.volumeInfo.title}

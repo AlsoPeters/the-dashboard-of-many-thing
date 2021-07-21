@@ -1,4 +1,13 @@
 .card-data {
     margin-left: 1rem;
     margin-top: 1rem;
+    cursor: pointer;
+}
+
+.grow {
+    transition: all 0.2s ease-in-out;
+}
+
+.grow:hover {
+    transform: scale(1.02);
 }
