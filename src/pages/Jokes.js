@@ -27,7 +27,7 @@ function Jokes() {
             .get(`https://v2.jokeapi.dev/joke/${jokeType}`)
             .then((res) => {
                 setjokes(res.data);
-                if (setLoading !== true) {
+                if (loading === true) {
                     setLoading(false);
                 }
             })
