@@ -11,6 +11,7 @@ function Books() {
     const [isData, setIsData] = useState([]);
 
     const google_books_api_key = process.env.REACT_APP_GOOGLE_BOOKS_API_KEY;
+    console.log(google_books_api_key);
 
     const { Meta } = Card;
 
@@ -27,7 +28,7 @@ function Books() {
     const renderDataCards = (data) => {
         // console.log(data.volumeInfo.infoLink);
         const handleLink = () => {
-            return data.volumeInfo.infoLink;
+            window.open(data.volumeInfo.infoLink);
         };
 
         return (
