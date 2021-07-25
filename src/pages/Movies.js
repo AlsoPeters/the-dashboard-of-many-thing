@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Input, Space, Card } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Input, Card, Pagination, Row, Image, Col, Divider } from 'antd';
 import axios from 'axios';
 
 const { Meta } = Card;
@@ -11,25 +11,68 @@ function Movies() {
     const [movieList, setMovieList] = useState([]);
     const [loading, setLoading] = useState(true);
     const [movieSearch, setMovieSearch] = useState('');
+    const [page, setPage] = useState(1);
+    const [totalResults, setTotalResults] = useState(0);
+
+    useEffect(() => {
+        getMovies();
+    }, [page]);
+
+    function pageReset() {
+        if (page !== 1) {
+            setPage(1);
+        } else {
+            getMovies();
+        }
+    }
 
     function getMovies() {
-        // console.log('asah');
-        axios
-            .get(
-                `http://www.omdbapi.com/?t=${movieSearch}&apikey=${movieAPI}&plot`
-            )
-            .then((res) => {
-                setMovieList(res.data);
-                setLoading(false);
-            })
-            .catch(console.error);
+        if (movieSearch !== '') {
+            axios
+                .get(
+                    `http://www.omdbapi.com/?s=${movieSearch}&apikey=${movieAPI}&plot&page=${page}`
+                )
+                .then((res) => {
+                    console.log(res.data);
+                    setMovieList(res.data.Search);
+                    setTotalResults(res.data.totalResults);
+
+                    setLoading(false);
+                })
+                .catch(console.error);
+        }
     }
-    console.log(movieList);
+    // console.log(movieList);
+
+    const renderMovies = (movie) => {
+        return (
+            <div>
+                <Card
+                    className="movie-card"
+                    hoverable
+                    style={{ width: 240, padding: 10 }}
+                    cover={
+                        <Image
+                            height={330}
+                            width={220}
+                            placeholder
+                            alt={movie.Title}
+                            src={movie.Poster}
+                        />
+                    }
+                >
+                    <Meta title={movie.Title} description={movie.Type} />
+                    <p>{`Year Released: ${movie.Year}`}</p>
+                </Card>
+            </div>
+        );
+    };
 
     if (loading === true) {
         return (
             <div>
                 <h1>Movies</h1>
+
                 <Search
                     placeholder="Enter a movie name"
                     onChange={(e) => {
@@ -54,20 +97,22 @@ function Movies() {
                         setMovieSearch(e.target.value);
                         console.log(movieSearch);
                     }}
-                    onSearch={getMovies}
-                    // style={{ width: 200 }}
+                    onSearch={pageReset}
+                    style={{ width: 200 }}
                 />
             </div>
-            <Card
-                className="movie-card"
-                hoverable
-                style={{ width: 240 }}
-                cover={<img alt={movieList.Title} src={movieList.Poster} />}
-            >
-                <Meta title={movieList.Title} description={movieList.Plot} />
-                <p>{`IMDB Rating: ${movieList.imdbRating}`}</p>
-                <p>{`Metascore: ${movieList.Metascore}`}</p>
-            </Card>
+            <Row>{movieList.map(renderMovies)}</Row>
+            <Pagination
+                total
+                simple
+                size="small"
+                defaultCurrent={1}
+                current={page}
+                onChange={(value) => {
+                    setPage(value);
+                }}
+                total={totalResults}
+            />
         </div>
     );
 }

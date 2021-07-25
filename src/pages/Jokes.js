@@ -22,7 +22,6 @@ function Jokes() {
     }
 
     function getJoke() {
-        console.log('assah');
         axios
             .get(`https://v2.jokeapi.dev/joke/${jokeType}`)
             .then((res) => {
