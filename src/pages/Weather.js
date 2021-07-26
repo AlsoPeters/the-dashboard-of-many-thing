@@ -17,29 +17,22 @@ const Weather = () => {
     const [isRenderTempSentence, setIsRenderTempSentence] = useState(false);
     const weather_api_key = process.env.REACT_APP_WEATHER_API_KEY;
     const google_api_key = process.env.REACT_APP_GOOGLE_API_KEY;
-    console.log(weather_api_key);
-    console.log(google_api_key);
 
     Geocode.setApiKey(google_api_key);
 
     const handleClick = async () => {
-        console.log(isCity);
         await Geocode.fromAddress(isCity).then(
             (response) => {
-                console.log(response);
                 const lat = response.results[0].geometry.location.lat;
                 const long = response.results[0].geometry.location.lng;
-                console.log(lat, long);
 
                 axios
                     .get(
                         `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&units=imperial&exclude=hourly,minutely{part}&appid=${weather_api_key}`
                     )
                     .then((answer) => {
-                        console.log(answer);
                         Geocode.fromLatLng(lat, long).then(
                             (response) => {
-                                console.log(response);
                                 const addressData =
                                     response.results[0].address_components;
 
