@@ -13,7 +13,7 @@ function Movies() {
     const [movieSearch, setMovieSearch] = useState('');
     const [page, setPage] = useState(1);
     const [totalResults, setTotalResults] = useState(0);
-    const [loadingSpinner, setLoadingSpinner] = useState(true);
+    const [loadingSpinner, setLoadingSpinner] = useState(false);
 
     useEffect(() => {
         getMovies();
@@ -35,15 +35,18 @@ function Movies() {
 
     function getMovies() {
         if (movieSearch !== '') {
+            setLoadingSpinner(true);
             axios
                 .get(
                     `https://www.omdbapi.com/?s=${movieSearch}&apikey=${movieAPI}&plot&page=${page}`
                 )
                 .then((res) => {
                     if (res.data.Response === 'False') {
+                        setLoadingSpinner(false);
                         console.log(res.data);
                         return openNotification(res.data.Error);
                     }
+                    setLoadingSpinner(false);
                     console.log(res.data);
                     setMovieList(res.data.Search);
                     setTotalResults(res.data.totalResults);
@@ -85,7 +88,6 @@ function Movies() {
         return (
             <div className="content">
                 <h1>Movies</h1>
-
                 <Search
                     placeholder="Enter a movie name"
                     onChange={(e) => {
@@ -96,6 +98,8 @@ function Movies() {
                     enterButton
                     style={{ width: 200 }}
                 />
+                <br />
+                <Spin size="large" spinning={loadingSpinner}></Spin>
             </div>
         );
     }
@@ -114,6 +118,8 @@ function Movies() {
                     enterButton
                     style={{ width: 200 }}
                 />
+                <br />
+                <Spin size="large" spinning={loadingSpinner}></Spin>
             </div>
 
             <Row>{movieList.map(renderMovies)}</Row>
