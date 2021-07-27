@@ -36,26 +36,30 @@ function Movies() {
     function getMovies() {
         if (movieSearch !== '') {
             setLoadingSpinner(true);
-            axios
-                .get(
-                    `https://www.omdbapi.com/?s=${movieSearch}&apikey=${movieAPI}&plot&page=${page}`
-                )
-                .then((res) => {
-                    if (res.data.Response === 'False') {
-                        setLoadingSpinner(false);
-                        console.log(res.data);
-                        return openNotification(res.data.Error);
-                    }
-                    setLoadingSpinner(false);
-                    console.log(res.data);
-                    setMovieList(res.data.Search);
-                    setTotalResults(res.data.totalResults);
+            setTimeout(
+                () =>
+                    axios
+                        .get(
+                            `https://www.omdbapi.com/?s=${movieSearch}&apikey=${movieAPI}&plot&page=${page}`
+                        )
+                        .then((res) => {
+                            if (res.data.Response === 'False') {
+                                setLoadingSpinner(false);
+                                console.log(res.data);
+                                return openNotification(res.data.Error);
+                            }
+                            setLoadingSpinner(false);
+                            console.log(res.data);
+                            setMovieList(res.data.Search);
+                            setTotalResults(res.data.totalResults);
 
-                    setLoading(false);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
+                            setLoading(false);
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        }),
+                1000
+            );
         }
     }
     // console.log(movieList);
@@ -88,16 +92,18 @@ function Movies() {
         return (
             <div>
                 <h1>Movies</h1>
-                <Search
-                    placeholder="Enter a movie name"
-                    onChange={(e) => {
-                        setMovieSearch(e.target.value);
-                        // console.log(movieSearch);
-                    }}
-                    onSearch={getMovies}
-                    enterButton
-                    style={{ width: 200 }}
-                />
+                <div>
+                    <Search
+                        placeholder="Enter a movie name"
+                        onChange={(e) => {
+                            setMovieSearch(e.target.value);
+                            // console.log(movieSearch);
+                        }}
+                        onSearch={getMovies}
+                        enterButton
+                        style={{ width: 200 }}
+                    />
+                </div>
                 <br />
                 <Spin size="large" spinning={loadingSpinner}></Spin>
             </div>
@@ -105,8 +111,9 @@ function Movies() {
     }
 
     return (
-        <div>
+        <div className="content">
             <h1>Movies</h1>
+
             <div>
                 <Search
                     placeholder="Enter a movie name"
@@ -119,21 +126,21 @@ function Movies() {
                     style={{ width: 200 }}
                 />
                 <br />
-                <Spin size="large" spinning={loadingSpinner}></Spin>
             </div>
-
-            <Row>{movieList.map(renderMovies)}</Row>
-            <Pagination
-                total
-                simple
-                size="small"
-                defaultCurrent={1}
-                current={page}
-                onChange={(value) => {
-                    setPage(value);
-                }}
-                total={totalResults}
-            />
+            <Spin size="large" spinning={loadingSpinner}>
+                <Row>{movieList.map(renderMovies)}</Row>
+                <Pagination
+                    total
+                    simple
+                    size="small"
+                    defaultCurrent={1}
+                    current={page}
+                    onChange={(value) => {
+                        setPage(value);
+                    }}
+                    total={totalResults}
+                />
+            </Spin>
         </div>
     );
 }
