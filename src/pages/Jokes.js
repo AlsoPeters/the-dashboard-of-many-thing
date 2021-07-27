@@ -36,7 +36,7 @@ function Jokes() {
 
     if (loading === true) {
         return (
-            <div>
+            <div className="content">
                 <h1>Jokes</h1>
 
                 <div>
@@ -62,7 +62,7 @@ function Jokes() {
         );
     }
     return (
-        <div>
+        <div className="content">
             <h1>Jokes</h1>
 
             <div>

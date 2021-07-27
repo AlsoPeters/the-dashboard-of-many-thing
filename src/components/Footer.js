@@ -1,11 +1,11 @@
 import React from 'react';
-import { Layout } from 'antd';
+import { AutoComplete, Layout } from 'antd';
 
 const { Footer } = Layout;
 
 const MyFooter = () => {
     return (
-        <Footer style={{ textAlign: 'center' }}>
+        <Footer className="footer">
             AlsoStark ©2021 Created by AlsoPeters and Stark
         </Footer>
     );

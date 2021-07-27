@@ -83,7 +83,7 @@ function Movies() {
 
     if (loading === true) {
         return (
-            <div>
+            <div className="content">
                 <h1>Movies</h1>
 
                 <Search
