@@ -62,7 +62,7 @@ function Books() {
     };
 
     return (
-        <div>
+        <div className="content">
             <h1>Books</h1>
             <div className="search-wrapper">
                 <Search

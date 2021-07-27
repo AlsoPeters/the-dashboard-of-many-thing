@@ -86,7 +86,7 @@ const Weather = () => {
         );
     };
     return (
-        <div className="weather-wrapper">
+        <div className="weather-wrapper content">
             <h1>Weather</h1>
             <h1>{headerTitle}</h1>
             <div className="tempSentence-wrapper">
