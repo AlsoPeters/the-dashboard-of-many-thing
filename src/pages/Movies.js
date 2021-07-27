@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Input, Card, Pagination, Row, Image, Col, Divider } from 'antd';
+import { Input, Card, Pagination, Row, Image, Spin, notification } from 'antd';
 import axios from 'axios';
 
 const { Meta } = Card;
@@ -13,6 +13,7 @@ function Movies() {
     const [movieSearch, setMovieSearch] = useState('');
     const [page, setPage] = useState(1);
     const [totalResults, setTotalResults] = useState(0);
+    const [loadingSpinner, setLoadingSpinner] = useState(true);
 
     useEffect(() => {
         getMovies();
@@ -26,6 +27,12 @@ function Movies() {
         }
     }
 
+    function openNotification(msg) {
+        notification.open({
+            message: `Failed to search: ${msg}`,
+        });
+    }
+
     function getMovies() {
         if (movieSearch !== '') {
             axios
@@ -33,13 +40,19 @@ function Movies() {
                     `http://www.omdbapi.com/?s=${movieSearch}&apikey=${movieAPI}&plot&page=${page}`
                 )
                 .then((res) => {
+                    if (res.data.Response === 'False') {
+                        console.log(res.data);
+                        return openNotification(res.data.Error);
+                    }
                     console.log(res.data);
                     setMovieList(res.data.Search);
                     setTotalResults(res.data.totalResults);
 
                     setLoading(false);
                 })
-                .catch(console.error);
+                .catch((err) => {
+                    console.log(err);
+                });
         }
     }
     // console.log(movieList);
@@ -86,21 +99,23 @@ function Movies() {
             </div>
         );
     }
+
     return (
         <div>
             <h1>Movies</h1>
             <div>
                 <Search
-                    className="movie-input"
                     placeholder="Enter a movie name"
                     onChange={(e) => {
                         setMovieSearch(e.target.value);
                         console.log(movieSearch);
                     }}
                     onSearch={pageReset}
+                    enterButton
                     style={{ width: 200 }}
                 />
             </div>
+
             <Row>{movieList.map(renderMovies)}</Row>
             <Pagination
                 total
