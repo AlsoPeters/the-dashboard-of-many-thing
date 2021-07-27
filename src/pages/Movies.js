@@ -37,7 +37,7 @@ function Movies() {
         if (movieSearch !== '') {
             axios
                 .get(
-                    `http://www.omdbapi.com/?s=${movieSearch}&apikey=${movieAPI}&plot&page=${page}`
+                    `https://www.omdbapi.com/?s=${movieSearch}&apikey=${movieAPI}&plot&page=${page}`
                 )
                 .then((res) => {
                     if (res.data.Response === 'False') {
