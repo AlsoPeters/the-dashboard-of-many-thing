@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import dotenv from 'dotenv';
 import axios from 'axios';
-import { Input, Card, Avatar, Row } from 'antd';
+import { Input, Card, Avatar, Row, Spin } from 'antd';
 import '../styling/Books.css';
 dotenv.config();
 
@@ -16,19 +16,26 @@ function Books() {
         );
     const [isBook, setIsBook] = useState('');
     const [isData, setIsData] = useState([]);
+    const [loadingSpinner, setLoadingSpinner] = useState(false);
 
     const google_books_api_key = process.env.REACT_APP_GOOGLE_BOOKS_API_KEY;
 
     const { Meta } = Card;
 
     const handleClick = () => {
-        axios
-            .get(
-                `https://www.googleapis.com/books/v1/volumes?q=+intitle:${isBook}&key=${google_books_api_key}`
-            )
-            .then((res) => {
-                setIsData(res.data.items);
-            });
+        setLoadingSpinner(true);
+        setTimeout(
+            () =>
+                axios
+                    .get(
+                        `https://www.googleapis.com/books/v1/volumes?q=+intitle:${isBook}&key=${google_books_api_key}`
+                    )
+                    .then((res) => {
+                        setLoadingSpinner(false);
+                        setIsData(res.data.items);
+                    }),
+            1000
+        );
     };
 
     const renderDataCards = (data) => {
@@ -71,6 +78,7 @@ function Books() {
     return (
         <div className="content">
             <h1>Books</h1>
+
             <div className="search-wrapper">
                 <Search
                     placeholder="input search text"
@@ -82,9 +90,16 @@ function Books() {
                     style={{ width: 200 }}
                 />
             </div>
-            <div className="bookdata-wrapper">
-                <Row>{isData.map(renderDataCards)}</Row>
-            </div>
+            <Spin
+                style={{ color: 'whitesmoke' }}
+                tip="Loading..."
+                size="large"
+                spinning={loadingSpinner}
+            >
+                <div className="bookdata-wrapper">
+                    <Row>{isData.map(renderDataCards)}</Row>
+                </div>
+            </Spin>
         </div>
     );
 }
