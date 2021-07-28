@@ -87,8 +87,7 @@ function Jokes() {
 
     if (jokes.type === 'twopart') {
         return (
-
-            <div>
+            <div className="content">
                 <h1>Jokes</h1>
 
                 <div>
