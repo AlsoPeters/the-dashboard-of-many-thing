@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input, Select, Button, Collapse } from 'antd';
+import { Input, Select, Button, Collapse, Spin } from 'antd';
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
 
@@ -15,6 +15,8 @@ function Jokes() {
     const [jokes, setjokes] = useState('');
     const [jokeType, setJokeType] = useState('Any');
     const [loading, setLoading] = useState(true);
+    const [loadingSpinner, setLoadingSpinner] = useState(false);
+    const [jokeBoxOpen, setjokeBoxOpen] = useState('2');
 
     function handleChange(value) {
         setJokeType(value);
@@ -22,22 +24,25 @@ function Jokes() {
         console.log(`selected ${value}`);
     }
 
-    function testClick() {
-        console.log('I clicked the button');
-    }
-
     function getJoke() {
-        axios
-            .get(`https://v2.jokeapi.dev/joke/${jokeType}`)
-            .then((res) => {
-                setjokes(res.data);
-                if (loading === true) {
-                    setLoading(false);
-                }
-            })
-            .catch(console.error);
+        setLoadingSpinner(true);
+        setjokeBoxOpen('2');
+        setTimeout(
+            () =>
+                axios
+                    .get(`https://v2.jokeapi.dev/joke/${jokeType}`)
+                    .then((res) => {
+                        setjokes(res.data);
+                        console.log(res);
+                        if (loading === true) {
+                            setLoading(false);
+                        }
+                        setLoadingSpinner(false);
+                    })
+                    .catch(console.error),
+            1000
+        );
     }
-    console.log(jokes);
 
     if (loading === true) {
         return (
@@ -69,69 +74,104 @@ function Jokes() {
                             Make me laugh
                         </Button>
                     </div>
+                    <Spin
+                        style={{ color: 'whitesmoke' }}
+                        tip="Loading..."
+                        size="large"
+                        spinning={loadingSpinner}
+                    ></Spin>
                 </div>
             </div>
         );
     }
-    return (
-        <div className="content">
-            <h1>Jokes</h1>
+
+    if (jokes.type === 'twopart') {
+        return (
 
             <div>
-                <Select
-                    defaultValue="Any"
-                    style={{ width: 200 }}
-                    onChange={handleChange}
-                >
-                    <Option value="Misc">Misc</Option>
-                    <Option value="Programming">Programming</Option>
-                    <Option value="Dark">Dark</Option>
-                    <Option value="Pun">Pun</Option>
-                    <Option value="Spooky">Spooky</Option>
-                    <Option value="Christmas">Christmas</Option>
-                </Select>
+                <h1>Jokes</h1>
+
                 <div>
-                    <Button type="primary" onClick={getJoke}>
-                        Make me laugh
-                    </Button>
+                    <Select
+                        defaultValue="Any"
+                        style={{ width: 200 }}
+                        onChange={handleChange}
+                    >
+                        <Option value="Misc">Misc</Option>
+                        <Option value="Programming">Programming</Option>
+                        <Option value="Dark">Dark</Option>
+                        <Option value="Pun">Pun</Option>
+                        <Option value="Spooky">Spooky</Option>
+                        <Option value="Christmas">Christmas</Option>
+                    </Select>
+                    <div>
+                        <Button type="primary" onClick={getJoke}>
+                            Make me laugh
+                        </Button>
+                    </div>
                 </div>
+                <Spin
+                    style={{ color: 'whitesmoke' }}
+                    tip="Loading..."
+                    size="large"
+                    spinning={loadingSpinner}
+                >
+                    <div>
+                        <h2>{jokes.setup}</h2>
+                        <Collapse
+                            accordion={true}
+                            onChange={(value) => {
+                                setjokeBoxOpen(value);
+                            }}
+                            activeKey={[jokeBoxOpen]}
+                            style={{ width: 200 }}
+                        >
+                            <Panel key="1" header="OMG tell me!">
+                                <p>{jokes.delivery}</p>
+                            </Panel>
+                        </Collapse>
+                    </div>
+                </Spin>
             </div>
+        );
+    }
+    if (jokes.type === 'single') {
+        return (
             <div>
-                <h2>{jokes.setup}</h2>
-                <Collapse defaultActiveKey={['1']} style={{ width: 200 }}>
-                    <Panel header="OMG tell me!">
-                        <p>{jokes.delivery}</p>
-                    </Panel>
-                </Collapse>
+                <h1>Jokes</h1>
+
+                <div>
+                    <Select
+                        defaultValue="Any"
+                        style={{ width: 200 }}
+                        onChange={handleChange}
+                    >
+                        <Option value="Misc">Misc</Option>
+                        <Option value="Programming">Programming</Option>
+                        <Option value="Dark">Dark</Option>
+                        <Option value="Pun">Pun</Option>
+                        <Option value="Spooky">Spooky</Option>
+                        <Option value="Christmas">Christmas</Option>
+                    </Select>
+                    <div>
+                        <Button type="primary" onClick={getJoke}>
+                            Make me laugh
+                        </Button>
+                    </div>
+                </div>
+                <Spin
+                    style={{ color: 'whitesmoke' }}
+                    tip="Loading..."
+                    size="large"
+                    spinning={loadingSpinner}
+                >
+                    <div>
+                        <h2>{jokes.joke}</h2>
+                    </div>
+                </Spin>
             </div>
-        </div>
-    );
+        );
+    }
 }
 
 export default Jokes;
-
-// import React, { useState, useEffect } from 'react'
-// import axios from 'axios'
-
-// function Call() {
-//     const [jokes, setjokes] = useState('')
-
-//     useEffect(() => {
-//         axios.get('https://official-joke-api.appspot.com/random_joke').then((res) => {
-//           const joke = (res.data)
-//           console.log(res)
-//         setjokes(joke)
-//         })
-
-//     }, [])
-//     console.log(jokes)
-//     return (
-//         <div>
-//             <h1>This is from Call</h1>
-//         <h2>{jokes.setup}</h2>
-//         <h3>{jokes.punchline}</h3>
-//         </div>
-//     )
-// }
-
-// export default Call
