@@ -1,9 +1,17 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 
 const Home = () => {
     document.title = 'TDofMT | Home';
     return (
         <div className="content">
+            <Helmet>
+                <meta property="og:title" content="Home | TDofMT" />
+                <meta
+                    property="og:description"
+                    content="The dashboard of many things"
+                />
+            </Helmet>
             <h1>Home</h1>
 
             <br></br>

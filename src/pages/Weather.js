@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Geocode from 'react-geocode';
 import { Input, Spin } from 'antd';
+import { Helmet } from 'react-helmet';
 
 const { Search } = Input;
 
@@ -100,6 +101,14 @@ const Weather = () => {
     };
     return (
         <div className="weather-wrapper content">
+            <Helmet>
+                <meta property="og:title" content="Weather | TDofMT" />
+                <meta
+                    property="og:description"
+                    content="Returns the highest daily temp for the day and the temp for that
+                    night."
+                />
+            </Helmet>
             <h1>Weather</h1>
             <Spin
                 style={{ color: 'whitesmoke' }}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Input, Select, Button, Collapse } from 'antd';
 import axios from 'axios';
+import { Helmet } from 'react-helmet';
 
 const { Option } = Select;
 const { Search } = Input;
@@ -41,6 +42,13 @@ function Jokes() {
     if (loading === true) {
         return (
             <div className="content">
+                <Helmet>
+                    <meta property="og:title" content="Jokes | TDofMT" />
+                    <meta
+                        property="og:description"
+                        content=" Choose a category and get a joke!"
+                    />
+                </Helmet>
                 <h1>Jokes</h1>
 
                 <div>

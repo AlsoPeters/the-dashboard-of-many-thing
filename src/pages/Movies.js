@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Input, Card, Pagination, Row, Image, Spin, notification } from 'antd';
 import axios from 'axios';
+import { Helmet } from 'react-helmet';
 
 const { Meta } = Card;
 const { Search } = Input;
@@ -98,6 +99,13 @@ function Movies() {
     if (loading === true) {
         return (
             <div className="content">
+                <Helmet>
+                    <meta property="og:title" content="Movies | TDofMT" />
+                    <meta
+                        property="og:description"
+                        content=" Returns a list of movies with the production date and cover."
+                    />
+                </Helmet>
                 <h1>Movies</h1>
                 <div>
                     <Search

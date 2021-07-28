@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import axios from 'axios';
 import { Input, Card, Avatar, Row, Spin } from 'antd';
 import '../styling/Books.css';
+import { Helmet } from 'react-helmet';
 dotenv.config();
 
 const { Search } = Input;
@@ -77,6 +78,14 @@ function Books() {
 
     return (
         <div className="content">
+            <Helmet>
+                <meta property="og:title" content="Books | TDofMT" />
+                <meta
+                    property="og:description"
+                    content=" Returns a list of books with a book summary and a link to the
+                website to buy it."
+                />
+            </Helmet>
             <h1>Books</h1>
 
             <div className="search-wrapper">
