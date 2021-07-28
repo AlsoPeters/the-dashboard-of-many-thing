@@ -62,7 +62,6 @@ function Movies() {
             );
         }
     }
-    // console.log(movieList);
 
     const renderMovies = (movie) => {
         return (
@@ -82,6 +81,7 @@ function Movies() {
                     }
                 >
                     <Meta title={movie.Title} description={movie.Type} />
+
                     <p>{`Year Released: ${movie.Year}`}</p>
                 </Card>
             </div>
@@ -104,8 +104,16 @@ function Movies() {
                         style={{ width: 200 }}
                     />
                 </div>
-                <br />
-                <Spin size="large" spinning={loadingSpinner}></Spin>
+                <div>
+                    <Spin
+                        style={{ color: 'whitesmoke' }}
+                        tip="Loading..."
+                        size="large"
+                        spinning={loadingSpinner}
+                    >
+                        <div></div>
+                    </Spin>
+                </div>
             </div>
         );
     }
@@ -127,20 +135,25 @@ function Movies() {
                 />
                 <br />
             </div>
-            <Spin size="large" spinning={loadingSpinner}>
+            <Spin
+                style={{ color: 'whitesmoke' }}
+                tip="Loading..."
+                size="large"
+                spinning={loadingSpinner}
+            >
                 <Row>{movieList.map(renderMovies)}</Row>
-                <Pagination
-                    total
-                    simple
-                    size="small"
-                    defaultCurrent={1}
-                    current={page}
-                    onChange={(value) => {
-                        setPage(value);
-                    }}
-                    total={totalResults}
-                />
             </Spin>
+            <Pagination
+                total
+                simple
+                size="small"
+                defaultCurrent={1}
+                current={page}
+                onChange={(value) => {
+                    setPage(value);
+                }}
+                total={totalResults}
+            />
         </div>
     );
 }
