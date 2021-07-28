@@ -3,10 +3,18 @@ import dotenv from 'dotenv';
 import axios from 'axios';
 import { Input, Card, Avatar, Row, Spin } from 'antd';
 import '../styling/Books.css';
+import { Helmet } from 'react-helmet';
 dotenv.config();
 
 const { Search } = Input;
 function Books() {
+    document.title = 'TDofMT | Books';
+    document
+        .querySelector('meta[name="description"]')
+        .setAttribute(
+            'content',
+            'Returns a list of books with a book summary and a link to the website to buy it.'
+        );
     const [isBook, setIsBook] = useState('');
     const [isData, setIsData] = useState([]);
     const [loadingSpinner, setLoadingSpinner] = useState(false);
@@ -69,7 +77,15 @@ function Books() {
     };
 
     return (
-        <div>
+        <div className="content">
+            <Helmet>
+                <meta property="og:title" content="Books | TDofMT" />
+                <meta
+                    property="og:description"
+                    content=" Returns a list of books with a book summary and a link to the
+                website to buy it."
+                />
+            </Helmet>
             <h1>Books</h1>
 
             <div className="search-wrapper">

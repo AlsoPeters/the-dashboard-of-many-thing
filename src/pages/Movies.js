@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Input, Card, Pagination, Row, Image, Spin, notification } from 'antd';
 import axios from 'axios';
+import { Helmet } from 'react-helmet';
 
 const { Meta } = Card;
 const { Search } = Input;
@@ -8,6 +9,13 @@ const { Search } = Input;
 const movieAPI = process.env.REACT_APP_MOVIES_API;
 
 function Movies() {
+    document.title = 'TDofMT | Movies';
+    document
+        .querySelector('meta[name="description"]')
+        .setAttribute(
+            'content',
+            'Returns a list of movies with the production date and cover.'
+        );
     const [movieList, setMovieList] = useState([]);
     const [loading, setLoading] = useState(true);
     const [movieSearch, setMovieSearch] = useState('');
@@ -90,7 +98,14 @@ function Movies() {
 
     if (loading === true) {
         return (
-            <div>
+            <div className="content">
+                <Helmet>
+                    <meta property="og:title" content="Movies | TDofMT" />
+                    <meta
+                        property="og:description"
+                        content=" Returns a list of movies with the production date and cover."
+                    />
+                </Helmet>
                 <h1>Movies</h1>
                 <div>
                     <Search

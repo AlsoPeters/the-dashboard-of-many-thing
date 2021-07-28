@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import { Input, Select, Button, Collapse, Spin } from 'antd';
 import axios from 'axios';
+import { Helmet } from 'react-helmet';
 
 const { Option } = Select;
 const { Search } = Input;
 const { Panel } = Collapse;
 
 function Jokes() {
+    document.title = 'TDofMT | Jokes';
+    document
+        .querySelector('meta[name="description"]')
+        .setAttribute('content', 'Choose a category and get a joke!');
     const [jokes, setjokes] = useState('');
     const [jokeType, setJokeType] = useState('Any');
     const [loading, setLoading] = useState(true);
@@ -41,7 +46,14 @@ function Jokes() {
 
     if (loading === true) {
         return (
-            <div>
+            <div className="content">
+                <Helmet>
+                    <meta property="og:title" content="Jokes | TDofMT" />
+                    <meta
+                        property="og:description"
+                        content=" Choose a category and get a joke!"
+                    />
+                </Helmet>
                 <h1>Jokes</h1>
 
                 <div>
@@ -72,8 +84,10 @@ function Jokes() {
             </div>
         );
     }
+
     if (jokes.type === 'twopart') {
         return (
+
             <div>
                 <h1>Jokes</h1>
 
