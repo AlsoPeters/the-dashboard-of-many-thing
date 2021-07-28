@@ -1,6 +1,7 @@
 import React from 'react';
 
 const Home = () => {
+    document.title = 'TDofMT | Home';
     return (
         <div className="content">
             <h1>Home</h1>
