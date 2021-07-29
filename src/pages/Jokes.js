@@ -48,10 +48,15 @@ function Jokes() {
         return (
             <div className="content">
                 <Helmet>
+                    <title>Jokes | TDofMT</title>
+                    <meta
+                        name="description"
+                        content="Choose a category and get a joke!"
+                    />
                     <meta property="og:title" content="Jokes | TDofMT" />
                     <meta
                         property="og:description"
-                        content=" Choose a category and get a joke!"
+                        content="Choose a category and get a joke!"
                     />
                 </Helmet>
                 <h1>Jokes</h1>

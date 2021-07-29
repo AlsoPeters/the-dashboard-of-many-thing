@@ -102,6 +102,12 @@ const Weather = () => {
     return (
         <div className="weather-wrapper content">
             <Helmet>
+                <title>Weather | TDofMT</title>
+                <meta
+                    name="description"
+                    content="Returns the highest daily temp for the day and the temp for that
+                    night"
+                />
                 <meta property="og:title" content="Weather | TDofMT" />
                 <meta
                     property="og:description"

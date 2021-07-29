@@ -6,6 +6,11 @@ const Home = () => {
     return (
         <div className="content">
             <Helmet>
+                <title>Home | TDofMT</title>
+                <meta
+                    name="description"
+                    content="The dashboard of many things"
+                />
                 <meta property="og:title" content="Home | TDofMT" />
                 <meta
                     property="og:description"

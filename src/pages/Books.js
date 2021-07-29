@@ -79,6 +79,12 @@ function Books() {
     return (
         <div className="content">
             <Helmet>
+                <title>Books | TDofMT</title>
+                <meta
+                    name="description"
+                    content="Returns a list of books with a book summary and a link to the
+                    website to buy it."
+                />
                 <meta property="og:title" content="Books | TDofMT" />
                 <meta
                     property="og:description"

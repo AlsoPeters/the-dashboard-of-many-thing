@@ -9,13 +9,6 @@ const { Search } = Input;
 const movieAPI = process.env.REACT_APP_MOVIES_API;
 
 function Movies() {
-    document.title = 'TDofMT | Movies';
-    document
-        .querySelector('meta[name="description"]')
-        .setAttribute(
-            'content',
-            'Returns a list of movies with the production date and cover.'
-        );
     const [movieList, setMovieList] = useState([]);
     const [loading, setLoading] = useState(true);
     const [movieSearch, setMovieSearch] = useState('');
@@ -100,6 +93,11 @@ function Movies() {
         return (
             <div className="content">
                 <Helmet>
+                    <title>Movies | TDofMT</title>
+                    <meta
+                        name="description"
+                        content="Returns a list of movies with the production date and cover."
+                    />
                     <meta property="og:title" content="Movies | TDofMT" />
                     <meta
                         property="og:description"
