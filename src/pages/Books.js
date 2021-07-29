@@ -8,13 +8,6 @@ dotenv.config();
 
 const { Search } = Input;
 function Books() {
-    document.title = 'TDofMT | Books';
-    document
-        .querySelector('meta[name="description"]')
-        .setAttribute(
-            'content',
-            'Returns a list of books with a book summary and a link to the website to buy it.'
-        );
     const [isBook, setIsBook] = useState('');
     const [isData, setIsData] = useState([]);
     const [loadingSpinner, setLoadingSpinner] = useState(false);

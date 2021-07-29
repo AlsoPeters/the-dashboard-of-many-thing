@@ -2,7 +2,6 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 
 const Home = () => {
-    document.title = 'TDofMT | Home';
     return (
         <div className="content">
             <Helmet>

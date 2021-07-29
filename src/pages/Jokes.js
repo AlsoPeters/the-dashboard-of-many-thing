@@ -8,10 +8,6 @@ const { Search } = Input;
 const { Panel } = Collapse;
 
 function Jokes() {
-    document.title = 'TDofMT | Jokes';
-    document
-        .querySelector('meta[name="description"]')
-        .setAttribute('content', 'Choose a category and get a joke!');
     const [jokes, setjokes] = useState('');
     const [jokeType, setJokeType] = useState('Any');
     const [loading, setLoading] = useState(true);

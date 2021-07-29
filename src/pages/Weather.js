@@ -11,13 +11,6 @@ const { Search } = Input;
 dotenv.config({ debug: process.env.debug });
 
 const Weather = () => {
-    document.title = 'TDofMT | Weather';
-    document
-        .querySelector('meta[name="description"]')
-        .setAttribute(
-            'content',
-            'Returns the highest daily temp for the day and the temp for that night.'
-        );
     const [isCity, setIsCity] = useState('');
     const [headerTitle, setHeaderTitle] = useState('');
     const [tempDay, setTempDay] = useState('');
