@@ -137,7 +137,7 @@ function Jokes() {
     }
     if (jokes.type === 'single') {
         return (
-            <div>
+            <div className="content">
                 <h1>Jokes</h1>
 
                 <div>
