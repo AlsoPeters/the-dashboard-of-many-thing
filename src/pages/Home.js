@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { Link } from 'react-router-dom';
 
 import {
     CloudOutlined,
@@ -12,8 +13,14 @@ import { auto } from 'async';
 
 const { Meta } = Card;
 const cardStyle = { paddingTop: 16, fontSize: 100 };
-const cardWrapper = { width: 240, textAlign: 'center' };
+const cardWrapper = {
+    width: 240,
+    textAlign: 'center',
+    marginTop: 15,
+};
 const cardSpan = '4';
+const xsSize = '24';
+const mdSize = '6';
 
 const Home = () => {
     return (
@@ -37,56 +44,70 @@ const Home = () => {
 
             <div className="site-card-wrapper">
                 <Row justify="space-around">
-                    <Col span={cardSpan}>
-                        <Card
-                            className="weather-card"
-                            hoverable
-                            style={cardWrapper}
-                            cover={<CloudOutlined style={cardStyle} />}
-                        >
-                            <Meta
-                                title="Weather"
-                                description="Returns the highest daily temp for the day and the temp for that
+                    <Col xs={xsSize} md={mdSize}>
+                        <Link to="/weather">
+                            <Card
+                                className="icon-card"
+                                hoverable
+                                style={cardWrapper}
+                                cover={<CloudOutlined style={cardStyle} />}
+                            >
+                                <Meta
+                                    title="Weather"
+                                    description="Returns the highest daily temp for the day and the temp for that
                 night."
-                            />
-                        </Card>
+                                />
+                            </Card>
+                        </Link>
                     </Col>
-                    <Col span={cardSpan}>
-                        <Card
-                            hoverable
-                            style={cardWrapper}
-                            cover={<VideoCameraOutlined style={cardStyle} />}
-                        >
-                            <Meta
-                                title="Movies"
-                                description="Returns a list of movies with the production date and cover."
-                            />
-                        </Card>
+                    <Col xs={xsSize} md={mdSize}>
+                        <Link to="/movies">
+                            <Card
+                                className="icon-card"
+                                hoverable
+                                style={cardWrapper}
+                                cover={
+                                    <VideoCameraOutlined style={cardStyle} />
+                                }
+                            >
+                                <Meta
+                                    title="Movies"
+                                    description="Returns a list of movies with the production date and cover."
+                                />
+                            </Card>
+                        </Link>
                     </Col>
-                    <Col span={cardSpan}>
-                        <Card
-                            hoverable
-                            style={cardWrapper}
-                            cover={<ReadOutlined style={cardStyle} />}
-                        >
-                            <Meta
-                                title="Books"
-                                description="Returns a list of books with a book summary and a link to the
+                    <Col xs={xsSize} md={mdSize}>
+                        <Link to="/books">
+                            <Card
+                                className="icon-card"
+                                hoverable
+                                style={cardWrapper}
+                                cover={<ReadOutlined style={cardStyle} />}
+                            >
+                                <Meta
+                                    title="Books"
+                                    description="Returns a list of books with a book summary and a link to the
                 website to buy it."
-                            />
-                        </Card>
+                                />
+                            </Card>
+                        </Link>
                     </Col>
-
-                    <Card
-                        hoverable
-                        style={cardWrapper}
-                        cover={<SmileOutlined style={cardStyle} />}
-                    >
-                        <Meta
-                            title="Jokes"
-                            description="Choose a category and get a joke!"
-                        />
-                    </Card>
+                    <Col xs={xsSize} md={mdSize}>
+                        <Link to="/jokes">
+                            <Card
+                                className="icon-card"
+                                hoverable
+                                style={cardWrapper}
+                                cover={<SmileOutlined style={cardStyle} />}
+                            >
+                                <Meta
+                                    title="Jokes"
+                                    description="Choose a category and get a joke!"
+                                />
+                            </Card>
+                        </Link>
+                    </Col>
                 </Row>
             </div>
 
