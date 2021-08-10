@@ -9,6 +9,7 @@ body {
     padding: 0;
     height: 100%;
 }
+
 .page-container {
     position: relative;
     min-height: 100vh;
@@ -24,6 +25,12 @@ body {
     padding: 24px;
     padding-bottom: 60px;
 }
+
+.ant-card-body {
+    padding: 24px;
+    height: 138.67px;
+}
+
 .footer {
     position: absolute;
     bottom: 0;
